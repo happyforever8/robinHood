@@ -1,14 +1,13 @@
-一堆课，找出上课顺序里,中间的那门课，只有一种正确的顺序，并且每个课只会对应另外一个prereq
-比如
+// 一堆课，找出上课顺序里,中间的那门课，只有一种正确的顺序，并且每个课只会对应另外一个prereq
+// 比如
 
-    ["Data Structures", "Algorithms"],
-    ["COBOL", "Networking"],
-    ["Algorithms", "COBOL"],
+//     ["Data Structures", "Algorithms"],
+//     ["COBOL", "Networking"],
+//     ["Algorithms", "COBOL"],
 
-"Data Structures"->"Algorithms" -> "COBOL"-> "Networking"
+// "Data Structures"->"Algorithms" -> "COBOL"-> "Networking"
 
-返回 “Algorithms"
-
+// 返回 “Algorithms"
 
 
 class Solution {

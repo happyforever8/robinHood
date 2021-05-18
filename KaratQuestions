@@ -26,3 +26,8 @@
 
     所有发出去了的email 和document信息 会存到一个log file，
 找出所有需要重新send notification的文件
+
+
+server load successfully notified doc id into memory as a hashet, 剩下的差不多，
+
+就是read DB get all signed doc，and check if the doc is in the a hashset, only send if not exist in set?

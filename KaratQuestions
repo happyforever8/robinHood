@@ -1,0 +1,28 @@
+先是花了2，3分钟介绍规则，然后给60秒介绍自己，接下来20分钟要回答以下的3个technical questions。
+1.	Google doc, 可以允许多个人访问同一个doc。每个server可以处理很多不同的doc，但同一个doc只由一个固定的server处理。也就是说访问同一个doc的所有request都会发到同一个server 处理分配doc的load balancer是round ronbin，问这个设计有什么问题。
+答：round ronbin 两个缺点，第一默认所有server的处理能力相当。如果有的server比较强悍，有的server比较弱鸡，会造成资源浪费。
+2.round ronbin不考虑number of connection request a server received。比如一个server上的doc有很多人同时访问，那么有新的doc进来的时候最好就不要再发到这个server上，改进方法Least Connection load balancing。
+
+
+
+(1)Round ronbin has two shortcomings. First, the processing power of all servers is equal by default. If some servers are more powerful and some are weaker, resources will be wasted.
+(2). Round ronbin does not consider the number of connection request a server received. For example, a doc on a server is accessed by many people at the same time, so when a new doc comes in, it is best not to send it to this server again, and improve the method Least Connection load balancing.
+
+2. 判该下面三种情况哪种用strong consistency 哪种用 eventual consistency.  
+第一个是media stream的meta data （eventual）
+第二个是web 做user analysis，面试官说可以想象成一个web，显示的是hit counter。 （我答的eventual，不知道对不对）
+第三个是银行的deposit和withdraw （strong）
+
+
+
+3. 还是doc， 如果所有的user sign了doc 就给每个user 发一个notification。但是由于系统的问题只有50%的doc 成功的给所有人发松了notifiction，问如果给那些没有成功发送notification的doc重新发送notification该怎么做。
+现有的条件是 1）database 里存着所有的doc id以及这个doc是否被所有user sign了。2） 有500个server，每个server会存有从该server成功发送notification的doc id
+
+答：1）db里加一列表示是否成功发送过notification 
+2）500个server各自统计发送成功的doc id，然后对db分别做batch write 
+3）系统对db做batch get 拿到所有没有发送成功的docId，然后重新发送notification。
+
+所有sign了的document id 会save 到一个database，
+
+    所有发出去了的email 和document信息 会存到一个log file，
+找出所有需要重新send notification的文件

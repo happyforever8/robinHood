@@ -1,5 +1,19 @@
 /*
 有多种track，返回所有path里的中间那门课
+Students may decide to take different "tracks" or sequences of courses
+in the Computer Science curriculum. There may be more than one track 
+that includes the same course, but each student follows a single linear 
+track from a "root" node to a "leaf" node. In the graph below, their path always moves left to right.
+
+Write a function that takes a list of (source, destination) pairs,
+and returns the name of all of the courses that the students could be taking when they are halfway through their track of courses.
+
+
+作者：关辰晓
+链接：https://www.jianshu.com/p/fdbcba5fe5bc
+来源：简书
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
 
 Sample input 1:
 all_courses_1 = [

@@ -181,7 +181,12 @@ transition_graph(logs2) # =>
 }
 =======================================================================================================
 
-
+Follow up
+  
+  第二问大概思路如下：
+1. Build resource array (sorted by time) for each user
+2. Traverse arrays above to count transition state from r1 -> r2 (r1 and r2 are resoruce tags, can be different or same)
+3. Compute probability based on transition state count above.
 
 
 

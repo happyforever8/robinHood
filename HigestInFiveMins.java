@@ -84,7 +84,102 @@ transition_graph(logs2) # =>
 'resource_3': {'resource_3: 0.857, 'END': 0.143}
 }
 
+===============================================================================
+  class Solution {
+  public static void main(String[] args) {
+    ArrayList<String> strings = new ArrayList<String>();
+    strings.add("Hello, World!");
+    strings.add("Welcome to CoderPad.");
+    strings.add("This pad is running Java " + Runtime.version().feature());
 
+    for (String string : strings) {
+      System.out.println(string);
+    }
+    
+     String [][]  logs = {
+                {"58523", "user_1", "resource_1"},
+                {"62314", "user_2", "resource_2"},
+                {"54001", "user_1", "resource_3"},
+                {"200", "user_6", "resource_5"},
+                {"215", "user_6", "resource_4"},
+                {"54060", "user_2", "resource_3"},
+                {"53760", "user_3", "resource_3"},
+                {"58522", "user_4", "resource_1"},
+                {"53651", "user_5", "resource_3"},
+                {"2", "user_6", "resource_1"},
+                {"100", "user_6", "resource_6"},
+                {"400", "user_7", "resource_2"},
+                {"100", "user_8", "resource_2"},
+                {"54359", "user_1", "resource_3"},
+        };
+
+        //userMinMaxTimestamp(logs);
+        System.out.println("=========================");
+        maxHitPageAndUser(logs);
+    
+  }
+  
+  public static void maxHitPageAndUser(String [][]  logs){
+    Map<String, List<Integer>> map = new HashMap<>();
+    
+    
+    for (String[] log : logs){
+      int time = Integer.parseInt(log[0]);
+      
+      String resourceId = log[2];
+      
+      map.putIfAbsent(resourceId, new ArrayList<>());
+      
+      map.get(resourceId).add(time);
+    }
+    
+    int max = Integer.MIN_VALUE;
+    String result = "";
+    
+    
+    for (Map.Entry<String,List<Integer>> entry : map.entrySet()){
+      String resourceId = entry.getKey();
+      
+      List<Integer> timeList = entry.getValue();
+      
+      int currMax = helper(resourceId, timeList);
+      
+      if (max <= currMax){
+        max = currMax;
+        result = resourceId;
+      }
+    }
+    
+    System.out.println(result + " : " + max);
+    
+  }
+  
+  public static int helper(String resourceId, List<Integer> timeList){
+    int maxValue = 1;
+    
+    Collections.sort(timeList);
+    
+    int windows = 300;
+    
+    if (timeList.size() > 1){
+      int start = 0;
+      int end = 1;
+      
+      while (start < end && end < timeList.size()){
+        if (timeList.get(end) - timeList.get(start) <= windows){
+          maxValue++;
+          end++;
+        } else {
+          start++;
+          end++;
+      }
+    }
+   
+  }
+     return maxValue;
+}
+}
+=======================================================================================================
 
 
 

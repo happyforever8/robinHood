@@ -30,13 +30,17 @@ component之间如何通讯？component做的事情是stateless的吗？
 
 
 (1)Question :
-  LZ 简单讨论一下哈，如果一个worker只能做一个task 那么只需要zookeeper或者db level的lock来知道那个worker做那个task 然后重新schedule给任何一个worker就行了吧 不需要特别加一个机器 只需要put back into schedule queue就行了
+  LZ 简单讨论一下哈，如果一个worker只能做一个task 那么只需要zookeeper或者db level的lock来知道那个worker做那个task 
+  然后重新schedule给任何一个worker就行了吧 不需要特别加一个机器 只需要put back into schedule queue就行了
   LZ 能提供一下什么叫discovery service吗
 
 Answer:
   恩恩，同意，我也是这么答的。两种方案：
   1. 一个是上DB锁，每次拿task的机器得先得到锁。如果中途挂了，那么未来一次锁竞争的时候会发现DB锁过期了。此时竞争到锁的worker就去接盘。
-  2. 另一个方案是用distributed lock + discovery service。这两个feature都是zookeeper支持的。这个方案的话每次选出固定一个机器去schedule tasks，之后不会变。如果这台机器挂了，那么zookeeper会发现（因为没有心跳了，discovery service就是zookeeper监听所有worker心跳的这个功能的装X说法），zookeeper会broadcast所有其他的机器过来重新竞选scheduler tasks。
+  2. 另一个方案是用distributed lock + discovery service。这两个feature都是zookeeper支持的。
+  这个方案的话每次选出固定一个机器去schedule tasks，之后不会变。如果这台机器挂了，
+  那么zookeeper会发现（因为没有心跳了，discovery service就是zookeeper监听所有worker心跳的这个功能的装X说法），
+  zookeeper会broadcast所有其他的机器过来重新竞选scheduler tasks。
 
   对于task scheduler来说方案1就够了，因为schedule task不会很经常，DB锁的开销不会很大。
 
@@ -53,11 +57,14 @@ Answer:
 (3) Question
     纯讨论
 
-我感觉楼主似乎设计了一个不需要master的scheduler （每个worker在向db要task）。这个设计不是不行，但这种设计intuitively应该是设计给超大型系统的。我感觉面试官的feedback是想你能够从一开始先研究清楚具体有多少task，再来从实际角度出发设计这个系统。
+我感觉楼主似乎设计了一个不需要master的scheduler （每个worker在向db要task）
+。这个设计不是不行，但这种设计intuitively应该是设计给超大型系统的。我感觉面试官的feedback是想你能够从一开始先研究清楚具体有多少task，再来从实际角度出发设计这个系统。
 
 我举个简单例子，如果这只是一个startup里面的每天运行10个任务的平台，如果设计如此复杂的分布式锁机制来管理task，会让系统很容易出错，也难debug，死锁之后系统变慢，也就是所谓的cap。
 
-如果有一个master来schedule这个task，每一个worker只是在被动接受任务，应该会简单很多。如果希望master有一个backup，确实可以用到分布式锁。但老实说，这个设计还是要根据需求定，一个master如果只是down了10分钟，然后重启之后整个系统都可以运转，对于cron job scheduler来说应该是可以忍受的。除非你设计的是amazon的云服务。again，一切都要根据需求来。
+如果有一个master来schedule这个task，每一个worker只是在被动接受任务，应该会简单很多。
+如果希望master有一个backup，确实可以用到分布式锁。但老实说，这个设计还是要根据需求定，
+一个master如果只是down了10分钟，然后重启之后整个系统都可以运转，对于cron job scheduler来说应该是可以忍受的。除非你设计的是amazon的云服务。again，一切都要根据需求来。
 
 欢迎讨论
 

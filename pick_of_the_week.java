@@ -1,6 +1,7 @@
 Your function will be called with a list/array of strings of the format "userId,stockSymbol" - for example, ["123,AAPL", "456629,GOOG"].
 
-It should calculate a leaderboard of stock picks - that is, the stocks that users picked most, with the number of users that picked them - and return this leaderboard as an ordered list/array of strings in the form "stockSymbol,numberOfPicks" - for example, ["AAPL,54", "GOOG,31", "MMM,4", ...].
+It should calculate a leaderboard of stock picks - that is, the stocks that users picked most,
+with the number of users that picked them - and return this leaderboard as an ordered list/array of strings in the form "stockSymbol,numberOfPicks" - for example, ["AAPL,54", "GOOG,31", "MMM,4", ...].
 
 Implementation notes:
 
@@ -15,7 +16,8 @@ Extra Bits (Tests 5 - 6)
 
 Extend your solution to handle two more requirements:
 
-Test 5: Have your program ignore any extra whitespace around either the user ID or the stock symbol (e.g. interpret 24231, TWLO as the user ID 24231 and the stock TWLO)
+Test 5: Have your program ignore any extra whitespace around either the user ID or the stock symbol
+(e.g. interpret 24231, TWLO as the user ID 24231 and the stock TWLO)
 
 Test 6: Only output the top 5 picks in the leaderboard, not all of them.
 

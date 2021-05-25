@@ -7,8 +7,9 @@
 
 // "Data Structures"->"Algorithms" -> "COBOL"-> "Networking"
 
-// 返回 “Algorithms"
-
+// 返回 “Algorithms". 
+// time Complexity O(E + V). V is the number of course, E is number of depency,is the course length
+// space complexity is the same
 
 class Solution {
   public static void main(String[] args) {

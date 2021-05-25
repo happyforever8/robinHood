@@ -1,11 +1,20 @@
 Robinhood面试流程挺独特的，VO前有一轮当读的System Design电面。
 我的题目是设计一个cron job scheduler，能handle millions of job submition. 关注点是如果job runners 全部挂了了怎么restart。
 
-
 关注点是如果job runners 全部挂了了怎么restart 最直接的办法 kafka做persistent 已经run的job logging 然后等系统恢复做用logging的数据做re-trigger
 
 https://medium.com/walmartglobaltech/an-approach-to-designing-distributed-fault-tolerant-horizontally-scalable-event-scheduler-278c9c380637
 =================================================================================================================================================
+
+
+
+https://leetcode.com/discuss/general-discussion/1082786/system-design-designing-a-distributed-job-scheduler-many-interesting-concepts-to-lear
+
+
+
+
+=================================================================================================================================================
+
 电面直接就设计题。设计scheduler system。详细写出DB schema。
 
 每个部分都讨论了容灾的方法。

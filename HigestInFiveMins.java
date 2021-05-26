@@ -189,6 +189,69 @@ Follow up
 3. Compute probability based on transition state count above.
 
 
+	public Map<String, Map<String, Double>> getTransitionGraph(String[][] logs) {
+		//UtilityHelper.printMatrix(logs);
+		Arrays.sort(logs, new Comparator<String[]>() {
+			@Override
+			public int compare(String[] o1, String[] o2) {
+				return Integer.valueOf(o1[0]) - Integer.valueOf(o2[0]);
+			}
+		});
+		//UtilityHelper.printMatrix(logs);
+		Map<String, List<String>> userToResourceMap = new HashMap<>();
+		for (String[] log : logs) {
+			String userId = log[1];
+			String resourceName = log[2];
+			if (!userToResourceMap.containsKey(userId)) {
+				userToResourceMap.put(userId, new ArrayList<>());
+			}
+			userToResourceMap.get(userId).add(resourceName);
+		}
+		//System.out.println(userToResourceMap);
+		Map<String, Map<String, Double>> adjMap = new HashMap<>();
+		for (String userId : userToResourceMap.keySet()) {
+			List<String> resourceList = userToResourceMap.get(userId);
+			if (resourceList != null && !resourceList.isEmpty()) {
+				String firstResource = resourceList.get(0);
+				if (!adjMap.containsKey("START")) {
+					adjMap.put("START", new HashMap<>());
+				}
+				Map<String, Double> tempStart = adjMap.get("START");
+				tempStart.put(firstResource, tempStart.getOrDefault(firstResource, 0.0) + 1.0);
+				for (int i = 1; i < resourceList.size(); i++) {
+					String prevResource = resourceList.get(i - 1);
+					String currResource = resourceList.get(i);
+					if (!adjMap.containsKey(prevResource)) {
+						adjMap.put(prevResource, new HashMap<>());
+					}
+					Map<String, Double> temp = adjMap.get(prevResource);
+					temp.put(currResource, temp.getOrDefault(currResource, 0.0) + 1.0);
+				}
+				String lastResource = resourceList.get(resourceList.size() - 1);
+				if (!adjMap.containsKey(lastResource)) {
+					adjMap.put(lastResource, new HashMap<>());
+				}
+				Map<String, Double> tempEnd = adjMap.get(lastResource);
+				tempEnd.put("END", tempEnd.getOrDefault("END", 0.0) + 1.0);
+			}
+		}
+		//System.out.println(adjMap);
+		for (String key : adjMap.keySet()) {
+			Double total = 0.0;
+			Map<String, Double> map = adjMap.get(key);
+			for (String tempKey : map.keySet()) {
+				total += map.get(tempKey);
+			}
+			for (String tempKey : map.keySet()) {
+				map.put(tempKey, roundDoubleTo3Decimals(map.get(tempKey) / total));
+			}
+		}
+		//System.out.println(adjMap);
+		return adjMap;
+	}
 
+	private Double roundDoubleTo3Decimals(Double value) {
+		return (double) Math.round(value * 1000d) / 1000d;
+	}
 
 

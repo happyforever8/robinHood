@@ -83,6 +83,9 @@ transition_graph(logs2) # =>
 'START': {'resource_3': 1.0},
 'resource_3': {'resource_3: 0.857, 'END': 0.143}
 }
+	
+	
+	
 
 ===============================================================================
   class Solution {
@@ -180,6 +183,13 @@ transition_graph(logs2) # =>
 }
 }
 =======================================================================================================
+做题目只有三十分钟，第一题，给你一个vector<vector<string>>，每一个vector<string>里，
+第一个element是epoch timestamp，第二个是user ID，第三个是resource，问五分钟内被用频率最高的resource，
+	和另一个同学应该是一样的题目（https://www.1point3acres.com/bbs ... 6orderby%3Ddateline）
+这题其实和之前有人发过的一小时内access多次是一个类型的，我是用一个map然后two pointer写的，大家见仁见智哈～
+写完只有七分钟了，小哥哥说第二题就说个思路吧，第二题其实我真的没看懂，我用我的微薄之力给大家解释一下，大家就当图个消遣吧。。。
+还是相同的input，这次要输出一个probability path，path开始是每个resource作为第一个resource的可能性，
+	接下来，如果这个resource有被用作第二个resource，那么这些resource作为第二个resource的可能性，以此类推。
 
 Follow up
   

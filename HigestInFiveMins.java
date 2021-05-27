@@ -192,6 +192,37 @@ transition_graph(logs2) # =>
 	接下来，如果这个resource有被用作第二个resource，那么这些resource作为第二个resource的可能性，以此类推。
 
 Follow up
+	
+	For example:
+logs1 = [
+["58523", "user_1", "resource_1"],
+["62314", "user_2", "resource_2"],
+["54001", "user_1", "resource_3"],
+["200", "user_6", "resource_5"],
+["215", "user_6", "resource_4"],
+["54060", "user_2", "resource_3"],
+["53760", "user_3", "resource_3"],
+["58522", "user_22", "resource_1"],
+["53651", "user_5", "resource_3"],
+["2", "user_6", "resource_1"],
+["100", "user_6", "resource_6"],
+["400", "user_7", "resource_2"],
+["100", "user_8", "resource_6"],
+["54359", "user_1", "resource_3"],
+]
+	
+	Expected output for logs1:
+transition_graph(logs1) # =>
+{
+'START': {'resource_1': 0.25, 'resource_2': 0.125, 'resource_3': 0.5, 'resource_6': 0.125},
+'resource_1': {'resource_6': 0.333, 'END': 0.667},
+'resource_2': {'END': 1.0},
+'resource_3': {'END': 0.4, 'resource_1': 0.2, 'resource_2': 0.2, 'resource_3': 0.2},
+'resource_4': {'END': 1.0},
+'resource_5': {'resource_4': 1.0},
+'resource_6': {'END': 0.5, 'resource_5': 0.5}
+}
+
   
   第二问大概思路如下：
 1. Build resource array (sorted by time) for each user

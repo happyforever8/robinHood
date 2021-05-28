@@ -5,7 +5,23 @@
 2.round ronbin不考虑number of connection request a server received。比如一个server上的doc有很多人同时访问，
 那么有新的doc进来的时候最好就不要再发到这个server上，改进方法Least Connection load balancing。
 
+Hi Danielle, how are you doing.
 
+This is dongming, I have worked in  software engineering for 7 years .
+
+ I have contributed two frond end project, 
+ one is SAR, another is user agreement tool using react.typscript, 
+ html, css  and so on. 
+
+ I am working in Ebay for account deletion project
+ which will delete user information from ebey system. 
+eBay has more than 1.2b accounts out of which only 70 m are active. 
+
+I have built a system which will delete 
+2 million accounts per day. We are handling different user
+types, like dormant, suspended, guest confimed and gust unformed .
+
+D
 
 (1)Round ronbin has two shortcomings. First, the processing power of 
 all servers is equal by default.

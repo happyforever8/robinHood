@@ -7,15 +7,21 @@
 
 
 
-(1)Round ronbin has two shortcomings. First, the processing power of all servers is equal by default.
-If some servers are more powerful and some are weaker, resources will be wasted.
-(2). Round ronbin does not consider the number of connection request a server received.
-For example, a doc on a server is accessed by many people at the same time, so when a new doc comes in, 
-it is best not to send it to this server again, and improve the method Least Connection load balancing.
+(1)Round ronbin has two shortcomings. First, the processing power of 
+all servers is equal by default.
+If some servers are more powerful and some are weaker, 
+resources will be wasted.
+(2). Round ronbin does not consider the number 
+of connection request a server received.
+For example, a doc on a server is accessed by 
+many people at the same time, so when a new doc comes in, 
+it is best not to send it to this server again,
+and improve the method Least Connection load balancing.
 
 2. 判该下面三种情况哪种用strong consistency 哪种用 eventual consistency.  
 第一个是media stream的meta data （eventual）
-第二个是web 做user analysis，面试官说可以想象成一个web，显示的是hit counter。 （我答的eventual，不知道对不对）
+第二个是web 做user analysis，面试官说可以想象成一个web，
+显示的是hit counter。 （我答的eventual，不知道对不对）
 第三个是银行的deposit和withdraw （strong）
 
 
